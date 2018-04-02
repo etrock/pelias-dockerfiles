@@ -40,7 +40,11 @@
     },
     "geonames": {
       "datapath": "/data/geonames",
-      "countryCode": "ALL"
+      "countryCode": "AF"
+    },
+    "gndb": {
+      "datapath": "/data/gndb",
+      "countryCode": "AF"
     },
     "openstreetmap": {
       "download": [
