@@ -27,7 +27,7 @@ services:
     container_name: pelias_api
     build: api
     restart: always
-    environment: [ "PORT=4000", "GEOTRANS_IP=172.17.0.1:3000"]
+    environment: [ "PORT=4000", "GEOTRANS_URL=http://172.17.0.1:3000"]
     ports: [ "4000:4000" ]
     networks: [ "pelias" ]
     volumes:

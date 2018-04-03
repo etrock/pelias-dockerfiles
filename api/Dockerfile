@@ -8,8 +8,7 @@ RUN git clone https://github.com/venicegeo/pelias-api.git /code/pelias/api
 WORKDIR /code/pelias/api
 
 # consume the build variables
-# ARG REVISION=master
-ARG REVISION=feature/gndb
+ARG REVISION=master
 
 # switch to desired revision
 RUN git checkout $REVISION
