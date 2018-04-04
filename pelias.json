@@ -23,6 +23,9 @@
       "placeholder": {
         "url": "http://placeholder:4100"
       },
+      "libpostal": {
+        "url": "http://libpostal:8080"
+      },
       "pip": {
         "url": "http://pip-service:4200"
       },
@@ -37,7 +40,11 @@
     },
     "geonames": {
       "datapath": "/data/geonames",
-      "countryCode": "ALL"
+      "countryCode": "AF"
+    },
+    "gndb": {
+      "datapath": "/data/gndb",
+      "countryCode": "AF"
     },
     "openstreetmap": {
       "download": [

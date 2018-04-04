@@ -39,6 +39,8 @@ First you'll need to create (or edit) the provided `pelias.json` file at the roo
 This is where you will specify all the details of your desired Pelias instance, such as area of coverage and data sources.
 You can reference the individual data sections below for more details on configuration.
 
+> NOTE:  Set the `GEOTRANS_IP` environment variable under the `api` section in `pelias.json` to the host's `docker0` IP in order for `/convert` requests to function.
+
 Once that's ready, the following command will build all the images and containers required:
 
 ```bash
@@ -54,6 +56,7 @@ docker-compose ps
 pelias_api             npm start                 Up       0.0.0.0:4000->4000/tcp           
 pelias_elasticsearch   /bin/bash bin/es-docker   Up       0.0.0.0:9200->9200/tcp, 9300/tcp
 pelias_geonames        /bin/bash                 Exit 0
+pelias_gndb            /bin/bash                 Exit 0
 pelias_interpolation   npm start                 Up       0.0.0.0:4300->4300/tcp
 pelias_openaddresses   /bin/bash                 Exit 0                                    
 pelias_openstreetmap   /bin/bash                 Exit 0
@@ -62,6 +65,7 @@ pelias_placeholder     npm start                 Up       0.0.0.0:4100->4100/tcp
 pelias_polylines       /bin/bash                 Exit 0                                    
 pelias_schema          /bin/bash                 Exit 0                                    
 pelias_whosonfirst     /bin/bash                 Exit 0
+pelias_mgrs            npm start                 Up       0.0.0.0:3150->3150/tcp
 ```
 
 ## Checking that Services are Running
@@ -83,6 +87,9 @@ http://localhost:4200/-122.650095/45.533467
 
 ### Interpolation
 http://localhost:4300/demo/#13/45.5465/-122.6351
+
+### GeoTrans MGRS Converter
+http://localhost:3150/?datum=WGE&coord=18STJ9710003003
 
 
 ## Data Download and Import
@@ -208,6 +215,9 @@ You can restrict the downloader to a single country by adding a `countryCode` pr
   }
 }
 ```
+*note: Geonames uses ISO-3166 alpha2 for country codes as opposed to FIPS in GNDB.
+Not all country codes will be the same between these two.
+For example: AU corresponds to Australia in Geonames and Austria in GNDB.*
 
 ##### download
 
@@ -215,10 +225,40 @@ You can restrict the downloader to a single country by adding a `countryCode` pr
 docker-compose run --rm geonames npm run download
 ```
 
-#### import
+##### import
 
 ```bash
 docker-compose run --rm geonames npm start
+```
+
+#### Geographic Names Database
+
+##### configuration
+
+You can restrict the downloader to a single country by adding a `countryCode` property in your `pelias.json`:
+
+```javascript
+"imports": {
+  "gndb": {
+    ...
+    "countryCode": "SG"
+  }
+}
+```
+*note: GNDB uses FIPS for country codes as opposed to ISO-3166 alpha2 in Geonames.
+Not all country codes will be the same between these two.
+For example: AU corresponds to Austria in GNDB and Australia in Geonames.*
+
+##### download
+
+```bash
+docker-compose run --rm gndb npm run download
+```
+
+##### import
+
+```bash
+docker-compose run --rm gndb npm start
 ```
 
 ## Polylines

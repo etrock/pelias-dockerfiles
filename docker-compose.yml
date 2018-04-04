@@ -16,17 +16,22 @@ services:
     networks: [ "pelias" ]
     volumes:
       - "./pelias.json:/code/pelias.json"
+  mgrs:
+    build: mgrs
+    container_name: geotrans_mgrs
+    ports: [ "3000:3000" ]
+    networks: [ "pelias" ]
   api:
     depends_on: [ "libpostal_baseimage" ]
-    image: pelias/api
+    # image: pelias/api
     container_name: pelias_api
+    build: api
     restart: always
-    environment: [ "PORT=4000" ]
+    environment: [ "PORT=4000", "GEOTRANS_URL=http://172.17.0.1:3000"]
     ports: [ "4000:4000" ]
     networks: [ "pelias" ]
     volumes:
       - "./pelias.json:/code/pelias.json"
-      - "libpostaldata:/usr/share/libpostal"
   libpostal:
     image: pelias/go-whosonfirst-libpostal
     container_name: pelias_libpostal
@@ -44,6 +49,7 @@ services:
       - "./pelias.json:/code/pelias.json"
       - "${DATA_DIR}:/data"
   whosonfirst:
+    depends_on: [ "libpostal_baseimage" ]
     image: pelias/whosonfirst
     container_name: pelias_whosonfirst
     networks: [ "pelias" ]
@@ -64,15 +70,22 @@ services:
     volumes:
       - "./pelias.json:/code/pelias.json"
       - "${DATA_DIR}:/data"
-#  Leave geonames out of the default build, uncomment if desired
-#  geonames:
-#    depends_on: [ "whosonfirst" ]
-#    image: pelias/geonames
-#    container_name: pelias_geonames
-#    networks: [ "pelias" ]
-#    volumes:
-#      - "./pelias.json:/code/pelias.json"
-#      - "${DATA_DIR}:/data"
+  geonames:
+    depends_on: [ "whosonfirst" ]
+    image: pelias/geonames
+    container_name: pelias_geonames
+    networks: [ "pelias" ]
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
+  gndb:
+    depends_on: [ "libpostal_baseimage", "whosonfirst" ]
+    build: gndb
+    container_name: venicegeo_geonamesmil
+    networks: [ "pelias" ]
+    volumes:
+      - "./pelias.json:/code/pelias.json"
+      - "${DATA_DIR}:/data"
 #  Use the pbf polyline extractor written by Peter for now because it's much faster
 #  valhalla:
 #    image: pelias/valhalla
