@@ -40,11 +40,11 @@
     },
     "geonames": {
       "datapath": "/data/geonames",
-      "countryCode": "AF"
+      "countryCode": "HU"
     },
     "gndb": {
       "datapath": "/data/gndb",
-      "countryCode": "AF"
+      "countryCode": "HU"
     },
     "openstreetmap": {
       "download": [
@@ -70,17 +70,13 @@
       "datapath": "/data/whosonfirst",
       "importVenues": false,
       "importPostalcodes": true,
-      "importPlace": "101715829"
+      "importPlace": "85633237"
     },
     "interpolation": {
       "download": {
         "tiger": {
           "datapath": "/data/tiger",
-          "states": [
-            {
-              "state_code": 41
-            }
-          ]
+          "states": []
         }
       }
     }
