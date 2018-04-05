@@ -58,6 +58,10 @@
         "filename": "hungary-latest.osm.pbf"
       }]
     },
+     "openaddresses": {
+      "datapath": "/data/openaddresses",
+      "files": []
+    },
     "polyline": {
       "datapath": "/data/polylines",
       "files": [ "extract.0sv" ]
