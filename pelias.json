@@ -40,11 +40,11 @@
     },
     "geonames": {
       "datapath": "/data/geonames",
-      "countryCode": "AF"
+      "countryCode": "HU"
     },
     "gndb": {
       "datapath": "/data/gndb",
-      "countryCode": "AF"
+      "countryCode": "HU"
     },
     "openstreetmap": {
       "download": [
@@ -72,11 +72,7 @@
       "download": {
         "tiger": {
           "datapath": "/data/tiger",
-          "states": [
-            {
-              "state_code": 41
-            }
-          ]
+          "states": []
         }
       }
     }
