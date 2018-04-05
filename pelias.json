@@ -49,18 +49,14 @@
     "openstreetmap": {
       "download": [
         {
-          "sourceURL": "https://s3.amazonaws.com/metro-extracts.nextzen.org/portland_oregon.osm.pbf"
+          "sourceURL": "http://download.geofabrik.de/europe/hungary-latest.osm.pbf"
         }
       ],
       "leveldbpath": "/tmp",
       "datapath": "/data/openstreetmap",
       "import": [{
-        "filename": "portland_oregon.osm.pbf"
+        "filename": "hungary-latest.osm.pbf"
       }]
-    },
-    "openaddresses": {
-      "datapath": "/data/openaddresses",
-      "files": [ "us/or/portland_metro.csv" ]
     },
     "polyline": {
       "datapath": "/data/polylines",
